@@ -8,10 +8,12 @@
 import SwiftUI
 
 @main
-struct ArtApp: App {  
+struct ArtApp: App {
+    let document = ArtDocument()
+    
     var body: some Scene {
         WindowGroup {
-            ContentView()
+            ArtDocumentView(document: document)
         }
     }
 }
