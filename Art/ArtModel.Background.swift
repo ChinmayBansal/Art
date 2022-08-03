@@ -9,7 +9,7 @@ import Foundation
 
 extension ArtModel {
     
-    enum Background {
+    enum Background: Equatable {
         case blank
         case url(URL)
         case imageData(Data)

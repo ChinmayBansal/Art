@@ -22,32 +22,46 @@ struct ArtDocumentView: View {
     var documentBody: some View {
         GeometryReader { geometry in
             ZStack {
-                Color.blue
+                Color.white.overlay(
+                    OptionalImage(uiImage: document.backgroundImage)
+                        .position(convertFromEmojiCoordinates((0,0), in: geometry))
+                )
                 ForEach(document.emojis) { emoji in
                     Text(emoji.text)
                         .font(.system(size: fontSize(for: emoji)))
                         .position(position(for: emoji, in: geometry))
                 }
             }
-            .onDrop(of: [.plainText], isTargeted: nil) { providers, location in
-                return drop(providers: providers, at: location, in: geometry)
+            .onDrop(of: [.plainText,.url,.image], isTargeted: nil) { providers, location in
+                 drop(providers: providers, at: location, in: geometry)
             }
         }
         
     }
     
     private func drop(providers:  [NSItemProvider], at location: CGPoint, in geometry: GeometryProxy) -> Bool {
-        return providers.loadObjects(ofType: String.self) { string in
-            if let emoji = string.first, emoji.isEmoji {
-                
-                
-                document.addEmoji(
-                    String(emoji),
-                    at: convertToEmojiCoordinates(location, in: geometry),
-                    size: defaultEmojiFontSize
-                )
+        var found = providers.loadObjects(ofType: URL.self) { url in
+            document.setBackground(.url(url.imageURL))
+        }
+        if !found {
+            found = providers.loadObjects(ofType: UIImage.self) { image  in
+                if let data = image.jpegData(compressionQuality: 1.0) {
+                    document.setBackground(.imageData(data))
+                }
             }
         }
+        if !found {
+            found = providers.loadObjects(ofType: String.self) { string in
+                if let emoji = string.first, emoji.isEmoji {
+                    document.addEmoji(
+                        String(emoji),
+                        at: convertToEmojiCoordinates(location, in: geometry),
+                        size: defaultEmojiFontSize
+                    )
+                }
+            }
+        }
+        return found
     }
     
     private func position(for emoji: ArtModel.Emoji, in geometry: GeometryProxy) -> CGPoint {
@@ -70,7 +84,7 @@ struct ArtDocumentView: View {
             y: center.y + CGFloat(location.y)
         )
     }
-                              
+    
     private func fontSize(for emoji: ArtModel.Emoji) -> CGFloat {
         CGFloat(emoji.size)
     }
@@ -86,7 +100,7 @@ struct ArtDocumentView: View {
 struct ScrollingEmojisView: View {
     
     let emojis: String
-
+    
     var body: some View {
         ScrollView(.horizontal) {
             HStack {
@@ -115,6 +129,7 @@ extension Character {
         }
     }
 }
+
 
 
 extension Array where Element == NSItemProvider {
@@ -153,6 +168,29 @@ extension Array where Element == NSItemProvider {
 }
 
 
+extension URL {
+    var imageURL: URL {
+        for query in query?.components(separatedBy: "&") ?? [] {
+            let queryComponents = query.components(separatedBy: "=")
+            if queryComponents.count == 2 {
+                if queryComponents[0] == "imgurl", let url = URL(string: queryComponents[1].removingPercentEncoding ?? "") {
+                    return url
+                }
+            }
+        }
+        return baseURL ?? self
+    }
+}
+
+struct OptionalImage: View {
+    var uiImage: UIImage?
+    
+    var body: some View {
+        if uiImage != nil {
+            Image(uiImage: uiImage!)
+        }
+    }
+}
 
 
 

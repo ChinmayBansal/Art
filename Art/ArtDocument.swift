@@ -8,23 +8,54 @@
 import SwiftUI
 
 class ArtDocument: ObservableObject {
-    @Published private(set) var art: ArtModel
+    @Published private(set) var art: ArtModel {
+        didSet {
+            if art.background != oldValue.background {
+                fetchBackgroundImageDataIfNecessary()
+            }
+        }
+    }
     
     init() {
         art = ArtModel()
         art.addEmoji("⚽️", at: (-200, -100), size: 80)
         art.addEmoji("🥃", at: (50, 100), size: 40)
-
+        
     }
+    
     
     var emojis: [ArtModel.Emoji] { art.emojis }
     var background: ArtModel.Background { art.background}
     
-    //Mark: - Intent(s)
+    @Published var backgroundImage: UIImage?
+    
+    
+    private func fetchBackgroundImageDataIfNecessary() {
+        backgroundImage = nil
+        switch art.background {
+        case .url(let url):
+            DispatchQueue.global(qos: .userInitiated).async {
+                let imageData = try? Data(contentsOf: url)
+                DispatchQueue.main.async {
+                    if imageData != nil {
+                        self.backgroundImage = UIImage(data: imageData!)
+                    }
+                }
+            }
+        case .imageData(let data):
+            backgroundImage = UIImage(data: data)
+        case .blank:
+            break
+        }
+    }
+
+    //  MARK: - Intent(s)
+
     
     
     func setBackground(_ background: ArtModel.Background) {
         art.background = background
+        print("background set to \(background)")
     }
     
     func addEmoji(_ emoji: String, at location: (x: Int, y: Int), size: CGFloat) {
