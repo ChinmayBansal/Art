@@ -28,17 +28,27 @@ class ArtDocument: ObservableObject {
     var background: ArtModel.Background { art.background}
     
     @Published var backgroundImage: UIImage?
+    @Published var backgroundImageFetchStatus = BackgroundImageFetchStatus.idle
+    
+    enum BackgroundImageFetchStatus {
+        case idle
+        case fetching
+    }
     
     
     private func fetchBackgroundImageDataIfNecessary() {
         backgroundImage = nil
         switch art.background {
         case .url(let url):
+            backgroundImageFetchStatus = .fetching
             DispatchQueue.global(qos: .userInitiated).async {
                 let imageData = try? Data(contentsOf: url)
-                DispatchQueue.main.async {
-                    if imageData != nil {
-                        self.backgroundImage = UIImage(data: imageData!)
+                DispatchQueue.main.async { [weak self] in
+                    if self?.art.background == ArtModel.Background.url(url) {
+                        self?.backgroundImageFetchStatus = .idle
+                        if imageData != nil {
+                            self?.backgroundImage = UIImage(data: imageData!)
+                        }
                     }
                 }
             }
