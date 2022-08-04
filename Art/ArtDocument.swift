@@ -10,16 +10,46 @@ import SwiftUI
 class ArtDocument: ObservableObject {
     @Published private(set) var art: ArtModel {
         didSet {
+            autosave()
             if art.background != oldValue.background {
                 fetchBackgroundImageDataIfNecessary()
             }
         }
     }
     
+    private struct Autosave {
+        static let filename = "Autosaved.art"
+        static var url: URL? {
+            let documentDirectory = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first
+            return documentDirectory?.appendingPathComponent(filename)
+        }
+    }
+    
+    private func autosave() {
+        if let url = Autosave.url {
+            save(to: url)
+        }
+    }
+    
+    private func save(to url: URL) {
+        let thisfunc = "\(String(describing: self)).\(#function)"
+        do {
+            let data: Data = try art.json()
+            print("\(thisfunc) json = \(String(data: data, encoding: .utf8) ?? "nil")")
+
+            try data.write(to: url)
+            print("\(thisfunc) success!")
+        } catch let encodingError where encodingError is EncodingError {
+            print("\(thisfunc) coudln't encode art as JSON because \(encodingError.localizedDescription)")
+        } catch {
+            print("\(thisfunc) error = \(error)")
+        }
+    }
+    
     init() {
         art = ArtModel()
-        art.addEmoji("⚽️", at: (-200, -100), size: 80)
-        art.addEmoji("🥃", at: (50, 100), size: 40)
+//        art.addEmoji("⚽️", at: (-200, -100), size: 80)
+//        art.addEmoji("🥃", at: (50, 100), size: 40)
         
     }
     

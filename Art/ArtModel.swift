@@ -8,11 +8,11 @@
 import Foundation
 
 
-struct ArtModel {
+struct ArtModel: Codable {
     var background = Background.blank
     var emojis = [Emoji]()
     
-    struct Emoji: Identifiable, Hashable {
+    struct Emoji: Identifiable, Hashable, Codable {
         let text: String
         var x: Int //offset from the center
         var y: Int //offset from the center
@@ -26,6 +26,10 @@ struct ArtModel {
             self.size = size
             self.id = id
         }
+    }
+    
+    func json() throws -> Data {
+        return try JSONEncoder().encode(self)
     }
     
     init() { }
