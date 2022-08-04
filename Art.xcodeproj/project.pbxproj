@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		D306EB96289C5EE00002A16C /* PaletteStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = D306EB95289C5EE00002A16C /* PaletteStorage.swift */; };
 		D3286E4E2899A6F10052AF26 /* ArtApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3286E4D2899A6F10052AF26 /* ArtApp.swift */; };
 		D3286E502899A6F10052AF26 /* ArtDocumentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3286E4F2899A6F10052AF26 /* ArtDocumentView.swift */; };
 		D3286E522899A6F20052AF26 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D3286E512899A6F20052AF26 /* Assets.xcassets */; };
@@ -17,6 +18,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		D306EB95289C5EE00002A16C /* PaletteStorage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaletteStorage.swift; sourceTree = "<group>"; };
 		D3286E4A2899A6F10052AF26 /* Art.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Art.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		D3286E4D2899A6F10052AF26 /* ArtApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArtApp.swift; sourceTree = "<group>"; };
 		D3286E4F2899A6F10052AF26 /* ArtDocumentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArtDocumentView.swift; sourceTree = "<group>"; };
@@ -63,6 +65,7 @@
 				D3286E5B2899A7670052AF26 /* ArtModel.swift */,
 				D3286E5D2899A98D0052AF26 /* ArtModel.Background.swift */,
 				D3286E5F2899AABE0052AF26 /* ArtDocument.swift */,
+				D306EB95289C5EE00002A16C /* PaletteStorage.swift */,
 				D3286E532899A6F20052AF26 /* Preview Content */,
 			);
 			path = Art;
@@ -147,6 +150,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				D3286E602899AABE0052AF26 /* ArtDocument.swift in Sources */,
+				D306EB96289C5EE00002A16C /* PaletteStorage.swift in Sources */,
 				D3286E502899A6F10052AF26 /* ArtDocumentView.swift in Sources */,
 				D3286E4E2899A6F10052AF26 /* ArtApp.swift in Sources */,
 				D3286E5E2899A98D0052AF26 /* ArtModel.Background.swift in Sources */,

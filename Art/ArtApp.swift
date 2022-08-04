@@ -10,6 +10,7 @@ import SwiftUI
 @main
 struct ArtApp: App {
     let document = ArtDocument()
+    let paletteStorage = PaletteStorage(named: "Default")
     
     var body: some Scene {
         WindowGroup {

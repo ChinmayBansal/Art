@@ -10,7 +10,7 @@ import SwiftUI
 class ArtDocument: ObservableObject {
     @Published private(set) var art: ArtModel {
         didSet {
-            autosave()
+            scheduledAutosave()
             if art.background != oldValue.background {
                 fetchBackgroundImageDataIfNecessary()
             }
@@ -22,6 +22,15 @@ class ArtDocument: ObservableObject {
         static var url: URL? {
             let documentDirectory = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first
             return documentDirectory?.appendingPathComponent(filename)
+        }
+        static let coalescingInterval = 5.0
+    }
+    private var autosaveTimer: Timer?
+    
+    private func scheduledAutosave() {
+        autosaveTimer?.invalidate()
+        autosaveTimer = Timer.scheduledTimer(withTimeInterval: Autosave.coalescingInterval, repeats: false) { _ in
+            self.autosave()
         }
     }
     
@@ -47,10 +56,14 @@ class ArtDocument: ObservableObject {
     }
     
     init() {
-        art = ArtModel()
+        if let url = Autosave.url, let autosavedArt = try? ArtModel(url: url) {
+            art = autosavedArt
+            fetchBackgroundImageDataIfNecessary()
+        } else {
+            art = ArtModel()
 //        art.addEmoji("⚽️", at: (-200, -100), size: 80)
 //        art.addEmoji("🥃", at: (50, 100), size: 40)
-        
+        }
     }
     
     
