@@ -40,7 +40,7 @@ class PaletteStorage: ObservableObject {
     private func restoreUserDefault()  {
         if let jsonData = UserDefaults.standard.data(forKey: userDefaultsKey),
         let decodedPalettes = try? JSONDecoder().decode(Array<Palette>.self, from: jsonData) {
-            palettes = decodedPalettes
+            palettes = decodedPalettes 
         }
 //        if let palettesAsPropertyList = UserDefaults.standard.array(forKey: userDefaultsKey) as? [[String]] {
 //            for paletteAsArray in palettesAsPropertyList {

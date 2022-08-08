@@ -15,6 +15,8 @@
 		D3286E5C2899A7670052AF26 /* ArtModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3286E5B2899A7670052AF26 /* ArtModel.swift */; };
 		D3286E5E2899A98D0052AF26 /* ArtModel.Background.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3286E5D2899A98D0052AF26 /* ArtModel.Background.swift */; };
 		D3286E602899AABE0052AF26 /* ArtDocument.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3286E5F2899AABE0052AF26 /* ArtDocument.swift */; };
+		D37F1DFD28A188DE00A9CC52 /* PaletteChooser.swift in Sources */ = {isa = PBXBuildFile; fileRef = D37F1DFC28A188DE00A9CC52 /* PaletteChooser.swift */; };
+		D37F1DFF28A1911000A9CC52 /* PaletteEditor.swift in Sources */ = {isa = PBXBuildFile; fileRef = D37F1DFE28A1911000A9CC52 /* PaletteEditor.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -27,6 +29,8 @@
 		D3286E5B2899A7670052AF26 /* ArtModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArtModel.swift; sourceTree = "<group>"; };
 		D3286E5D2899A98D0052AF26 /* ArtModel.Background.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArtModel.Background.swift; sourceTree = "<group>"; };
 		D3286E5F2899AABE0052AF26 /* ArtDocument.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArtDocument.swift; sourceTree = "<group>"; };
+		D37F1DFC28A188DE00A9CC52 /* PaletteChooser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaletteChooser.swift; sourceTree = "<group>"; };
+		D37F1DFE28A1911000A9CC52 /* PaletteEditor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaletteEditor.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -61,6 +65,8 @@
 			children = (
 				D3286E4D2899A6F10052AF26 /* ArtApp.swift */,
 				D3286E4F2899A6F10052AF26 /* ArtDocumentView.swift */,
+				D37F1DFC28A188DE00A9CC52 /* PaletteChooser.swift */,
+				D37F1DFE28A1911000A9CC52 /* PaletteEditor.swift */,
 				D3286E512899A6F20052AF26 /* Assets.xcassets */,
 				D3286E5B2899A7670052AF26 /* ArtModel.swift */,
 				D3286E5D2899A98D0052AF26 /* ArtModel.Background.swift */,
@@ -153,6 +159,8 @@
 				D306EB96289C5EE00002A16C /* PaletteStorage.swift in Sources */,
 				D3286E502899A6F10052AF26 /* ArtDocumentView.swift in Sources */,
 				D3286E4E2899A6F10052AF26 /* ArtApp.swift in Sources */,
+				D37F1DFF28A1911000A9CC52 /* PaletteEditor.swift in Sources */,
+				D37F1DFD28A188DE00A9CC52 /* PaletteChooser.swift in Sources */,
 				D3286E5E2899A98D0052AF26 /* ArtModel.Background.swift in Sources */,
 				D3286E5C2899A7670052AF26 /* ArtModel.swift in Sources */,
 			);
