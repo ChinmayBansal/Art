@@ -61,8 +61,7 @@ class ArtDocument: ObservableObject {
             fetchBackgroundImageDataIfNecessary()
         } else {
             art = ArtModel()
-//        art.addEmoji("⚽️", at: (-200, -100), size: 80)
-//        art.addEmoji("🥃", at: (50, 100), size: 40)
+
         }
     }
     
@@ -73,9 +72,10 @@ class ArtDocument: ObservableObject {
     @Published var backgroundImage: UIImage?
     @Published var backgroundImageFetchStatus = BackgroundImageFetchStatus.idle
     
-    enum BackgroundImageFetchStatus {
+    enum BackgroundImageFetchStatus: Equatable {
         case idle
         case fetching
+        case failed(URL)
     }
     
     
@@ -91,6 +91,9 @@ class ArtDocument: ObservableObject {
                         self?.backgroundImageFetchStatus = .idle
                         if imageData != nil {
                             self?.backgroundImage = UIImage(data: imageData!)
+                        }
+                        if self?.backgroundImage == nil {
+                            self?.backgroundImageFetchStatus = .failed(url)
                         }
                     }
                 }
