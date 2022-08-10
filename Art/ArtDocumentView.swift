@@ -56,6 +56,9 @@ struct ArtDocumentView: View {
                     break
                 }
             }
+            .onReceive(document.$backgroundImage) { image in
+                zoomToFit(image, in: geometry.size)
+            }
 
         }
         
