@@ -9,12 +9,11 @@ import SwiftUI
 
 @main
 struct ArtApp: App {
-    @StateObject var document = ArtDocument()
     @StateObject var paletteStorage = PaletteStorage(named: "Default")
     
     var body: some Scene {
-        WindowGroup {
-            ArtDocumentView(document: document)
+        DocumentGroup(newDocument: { ArtDocument() }) { config in
+            ArtDocumentView(document: config.document)
                 .environmentObject(paletteStorage)
         }
     }
